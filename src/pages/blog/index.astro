@@ -1,0 +1,52 @@
+---
+import Base from '@/layouts/Base.astro';
+import PageHeader from '@/components/PageHeader.astro';
+import { getCollection } from 'astro:content';
+import { formatDate } from '@/utils';
+
+const posts = (await getCollection('blog')).toSorted(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+---
+
+<Base
+	title="Blog · Matilde"
+	description="Posts about development, open source, and life."
+>
+	<div class="mx-auto min-h-screen max-w-3xl px-6 pt-24 pb-16">
+		<PageHeader
+			title="blog"
+			subtitle="thoughts, projects, and the occasional ramble"
+		/>
+
+		<div class="flex flex-col gap-4">
+			{
+				posts.length === 0 ? (
+					<p class="text-cocoa-light text-sm">
+						No posts yet — check back soon!
+					</p>
+				) : (
+					posts.map((post) => (
+						<a
+							href={`/blog/${post.id}/`}
+							class="group border-peach/10 bg-cream/50 hover:border-peach/25 hover:shadow-peach/10 block rounded-2xl border p-5 backdrop-blur-sm transition-all hover:-translate-y-0.5 hover:shadow-lg"
+						>
+							<time
+								datetime={post.data.pubDate.toISOString()}
+								class="text-cocoa-light text-xs font-medium"
+							>
+								{formatDate(post.data.pubDate)}
+							</time>
+							<h2 class="group-hover:text-peach mt-1 mb-1.5 text-lg font-semibold transition-colors">
+								{post.data.title}
+							</h2>
+							<p class="text-cocoa-light text-sm leading-relaxed">
+								{post.data.description}
+							</p>
+						</a>
+					))
+				)
+			}
+		</div>
+	</div>
+</Base>

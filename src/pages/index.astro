@@ -1,9 +1,54 @@
 ---
 import Base from '@/layouts/Base.astro';
+import WebRing from '@/components/WebRing.astro';
+import IconGithub from '@/assets/icons/github.svg';
+import IconEmail from '@/assets/icons/email.svg';
+import { contacts, rings } from '@/config';
 ---
 
-<Base>
-	<div class="flex h-full w-full flex-col items-center justify-center">
-		<h1 class="text-7xl font-bold">Matilde</h1>
+<Base
+	description="Systems programmer based in Europe, mostly writing Rust and occasionally messing with Gleam."
+>
+	<div
+		class="flex min-h-screen flex-col items-center justify-center px-6 pt-16 pb-12"
+	>
+		<div class="max-w-md text-center">
+			<h1 class="mb-3 text-7xl font-bold tracking-tight sm:text-8xl">
+				Matilde
+			</h1>
+			<p class="text-cocoa-light mb-6 text-lg font-medium">
+				foss enthusiast · rust lover · gleam fanatic
+			</p>
+			<p class="text-cocoa/80 mb-8 leading-relaxed">
+				I'm a systems programmer based in Europe, mostly writing Rust and
+				occasionally messing with Gleam. I like re-building things from the
+				ground up, hopefully to make them better.
+			</p>
+			<div class="flex flex-wrap items-center justify-center gap-3">
+				<a
+					href={contacts.github.href}
+					target="_blank"
+					rel="noopener noreferrer"
+					class="bg-peach/15 hover:bg-peach/25 border-peach/20 flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium transition-all hover:scale-105"
+				>
+					<IconGithub aria-hidden="true" class="h-4 w-4" />
+					github
+				</a>
+				<a
+					href={contacts.email.href}
+					class="bg-lavender/15 hover:bg-lavender/25 border-lavender/20 flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium transition-all hover:scale-105"
+				>
+					<IconEmail aria-hidden="true" class="h-4 w-4" />
+					email
+				</a>
+				<a
+					href="/contacts"
+					class="text-cocoa-light hover:text-peach text-sm font-medium transition-colors"
+				>
+					all contacts &rarr;
+				</a>
+			</div>
+		</div>
 	</div>
+	<WebRing rings={rings} />
 </Base>

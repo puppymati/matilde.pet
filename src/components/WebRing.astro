@@ -1,0 +1,62 @@
+---
+interface Ring {
+	name: string;
+	member: string;
+	base: string;
+	random?: boolean;
+}
+
+interface Props {
+	rings: Ring[];
+}
+
+const { rings } = Astro.props;
+---
+
+<nav
+	aria-label="webrings"
+	class="fixed inset-x-0 bottom-6 z-40 flex justify-center"
+>
+	<div
+		class="border-peach/15 bg-cream/60 flex items-center rounded-full border px-2 py-1.5 shadow-sm backdrop-blur-md"
+	>
+		{
+			rings.map((ring, i) => (
+				<>
+					{i > 0 && <span class="bg-cocoa/10 mx-1 h-4 w-px shrink-0" />}
+					<div class="flex items-center">
+						<a
+							href={`${ring.base}/prev/${ring.member}`}
+							class="text-cocoa-light hover:text-cocoa px-1.5 py-0.5 text-sm transition-colors"
+							aria-label={`Previous in ${ring.name}`}
+						>
+							&lsaquo;
+						</a>
+						<a
+							href={ring.base}
+							class="text-cocoa-light hover:text-cocoa px-1 py-0.5 text-sm font-medium transition-colors"
+						>
+							{ring.name}
+						</a>
+						{ring.random && (
+							<a
+								href={`${ring.base}/rand`}
+								class="text-cocoa/30 hover:text-cocoa px-1 py-0.5 text-xs transition-colors"
+								aria-label={`Random in ${ring.name}`}
+							>
+								?
+							</a>
+						)}
+						<a
+							href={`${ring.base}/next/${ring.member}`}
+							class="text-cocoa-light hover:text-cocoa px-1.5 py-0.5 text-sm transition-colors"
+							aria-label={`Next in ${ring.name}`}
+						>
+							&rsaquo;
+						</a>
+					</div>
+				</>
+			))
+		}
+	</div>
+</nav>

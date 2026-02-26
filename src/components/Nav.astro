@@ -1,0 +1,63 @@
+---
+import PawPrint from '@/assets/icons/paw-print.svg';
+
+const currentPath = Astro.url.pathname;
+
+const links = [
+	{ href: '/', label: 'home', icon: true, match: (p: string) => p === '/' },
+	{
+		href: '/blog',
+		label: 'blog',
+		match: (p: string) => p === '/blog' || p.startsWith('/blog/'),
+	},
+	{
+		href: '/projects',
+		label: 'projects',
+		match: (p: string) => p === '/projects' || p.startsWith('/projects/'),
+	},
+	{
+		href: '/contacts',
+		label: 'contacts',
+		match: (p: string) => p === '/contacts' || p.startsWith('/contacts/'),
+	},
+];
+---
+
+<nav class="fixed inset-x-0 top-5 z-50 flex justify-center">
+	<div
+		class="border-peach/15 bg-cream/60 flex items-center rounded-full border p-1.5 shadow-sm backdrop-blur-md"
+	>
+		{
+			links.map((link) => {
+				const isActive = link.match(currentPath);
+				return (
+					<a
+						href={link.href}
+						aria-current={isActive ? 'page' : undefined}
+						class:list={[
+							'relative flex h-8 items-center gap-1.5 rounded-full px-4 text-sm font-medium transition-colors',
+							isActive ? 'text-cocoa' : 'text-cocoa-light hover:text-cocoa',
+						]}
+					>
+						{isActive && (
+							<span class="nav-indicator bg-peach/20 absolute inset-0 rounded-full" />
+						)}
+						{link.icon && (
+							<PawPrint
+								aria-hidden="true"
+								class="fill-peach relative h-3.5 w-3.5"
+							/>
+						)}
+						<span class="relative">{link.label}</span>
+					</a>
+				);
+			})
+		}
+	</div>
+</nav>
+
+<style>
+	.nav-indicator {
+		view-transition-name: nav-indicator;
+	}
+</style>

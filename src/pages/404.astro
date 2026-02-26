@@ -2,9 +2,21 @@
 import Base from '@/layouts/Base.astro';
 ---
 
-<Base>
-	<div class="flex h-screen flex-col items-center justify-center">
-		<div class="text-3xl">404</div>
-		<div class="text-xl">This page does not exist</div>
+<Base title="Not Found · Matilde">
+	<div
+		class="flex min-h-screen flex-col items-center justify-center px-6 text-center"
+	>
+		<div>
+			<h1 class="text-peach/40 mb-4 text-8xl font-bold">404</h1>
+			<p class="text-cocoa-light text-lg">
+				This page wandered off somewhere...
+			</p>
+			<a
+				href="/"
+				class="text-cocoa-light hover:text-peach mt-6 inline-block text-sm font-medium transition-colors"
+			>
+				back home
+			</a>
+		</div>
 	</div>
 </Base>

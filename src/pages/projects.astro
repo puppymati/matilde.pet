@@ -1,0 +1,93 @@
+---
+import Base from '@/layouts/Base.astro';
+import PageHeader from '@/components/PageHeader.astro';
+import IconArrowUpRight from '@/assets/icons/arrow-up-right.svg';
+import { projects } from '@/config';
+import type { AccentColor } from '@/config';
+
+const projectColors: Record<
+	AccentColor,
+	{ border: string; tag: string; hover: string; hoverText: string }
+> = {
+	peach: {
+		border: 'border-peach/10',
+		tag: 'bg-peach/15 text-cocoa',
+		hover: 'hover:border-peach/25 hover:shadow-peach/10',
+		hoverText: 'group-hover:text-peach',
+	},
+	lavender: {
+		border: 'border-lavender/10',
+		tag: 'bg-lavender/15 text-cocoa',
+		hover: 'hover:border-lavender/25 hover:shadow-lavender/10',
+		hoverText: 'group-hover:text-lavender',
+	},
+	pink: {
+		border: 'border-pink/10',
+		tag: 'bg-pink/15 text-cocoa',
+		hover: 'hover:border-pink/25 hover:shadow-pink/10',
+		hoverText: 'group-hover:text-pink',
+	},
+};
+---
+
+<Base
+	title="Projects · Matilde"
+	description="Things I've built and contributed to."
+>
+	<div class="mx-auto min-h-screen max-w-3xl px-6 pt-24 pb-16">
+		<PageHeader
+			title="projects"
+			subtitle="things i've built and tinkered with"
+		/>
+
+		<div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
+			{
+				projects.map((project) => {
+					const colors = projectColors[project.color];
+					return (
+						<a
+							href={project.href}
+							target="_blank"
+							rel="noopener noreferrer"
+							class:list={[
+								'group bg-cream/50 block rounded-2xl border p-5 backdrop-blur-sm transition-all hover:-translate-y-0.5 hover:shadow-lg',
+								colors.border,
+								colors.hover,
+							]}
+						>
+							<div class="mb-2 flex items-center gap-3">
+								<h2
+									class:list={[
+										'text-lg font-semibold transition-colors',
+										colors.hoverText,
+									]}
+								>
+									{project.name}
+								</h2>
+								<IconArrowUpRight
+									aria-hidden="true"
+									class="text-cocoa-light h-4 w-4 shrink-0 opacity-0 transition-all group-hover:translate-x-0.5 group-hover:opacity-60"
+								/>
+							</div>
+							<p class="text-cocoa-light mb-3 text-sm leading-relaxed">
+								{project.description}
+							</p>
+							<div class="flex flex-wrap gap-1.5">
+								{project.tags.map((tag) => (
+									<span
+										class:list={[
+											'rounded-full px-2.5 py-0.5 text-xs font-medium',
+											colors.tag,
+										]}
+									>
+										{tag}
+									</span>
+								))}
+							</div>
+						</a>
+					);
+				})
+			}
+		</div>
+	</div>
+</Base>

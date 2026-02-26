@@ -1,0 +1,83 @@
+---
+import Base from '@/layouts/Base.astro';
+import PageHeader from '@/components/PageHeader.astro';
+import IconGithub from '@/assets/icons/github.svg';
+import IconBluesky from '@/assets/icons/bluesky.svg';
+import IconFediverse from '@/assets/icons/fediverse.svg';
+import IconDiscord from '@/assets/icons/discord.svg';
+import IconX from '@/assets/icons/x.svg';
+import IconEmail from '@/assets/icons/email.svg';
+import { contacts } from '@/config';
+
+const contactCards = [
+	{ ...contacts.github, Icon: IconGithub },
+	{ ...contacts.bluesky, Icon: IconBluesky },
+	{ ...contacts.fediverse, Icon: IconFediverse },
+	{ ...contacts.discord, Icon: IconDiscord },
+	{ ...contacts.twitter, Icon: IconX },
+	{ ...contacts.email, Icon: IconEmail },
+];
+
+const contactColors: Record<
+	'peach' | 'lavender' | 'pink',
+	{ bg: string; border: string; hover: string }
+> = {
+	peach: {
+		bg: 'bg-peach/10',
+		border: 'border-peach/15',
+		hover: 'hover:border-peach/30 hover:shadow-peach/10',
+	},
+	lavender: {
+		bg: 'bg-lavender/10',
+		border: 'border-lavender/15',
+		hover: 'hover:border-lavender/30 hover:shadow-lavender/10',
+	},
+	pink: {
+		bg: 'bg-pink/10',
+		border: 'border-pink/15',
+		hover: 'hover:border-pink/30 hover:shadow-pink/10',
+	},
+};
+---
+
+<Base title="Contacts · Matilde" description="Find me around the internet.">
+	<div class="mx-auto min-h-screen max-w-3xl px-6 pt-24 pb-16">
+		<PageHeader title="contacts" subtitle="find me around the internet" />
+
+		<div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
+			{
+				contactCards.map((social) => {
+					const colors = contactColors[social.color];
+					const Icon = social.Icon;
+					const isExternal =
+						!social.href.startsWith('/') &&
+						!social.href.startsWith('mailto:') &&
+						social.href !== '#';
+					return (
+						<a
+							href={social.href}
+							target={isExternal ? '_blank' : undefined}
+							rel={isExternal ? 'noopener noreferrer' : undefined}
+							class:list={[
+								'group flex items-center gap-4 rounded-2xl border p-4 backdrop-blur-sm transition-all hover:-translate-y-0.5 hover:shadow-lg',
+								colors.bg,
+								colors.border,
+								colors.hover,
+							]}
+						>
+							<div class="bg-cream/60 flex h-10 w-10 shrink-0 items-center justify-center rounded-xl p-2.5 transition-transform group-hover:scale-110">
+								<Icon aria-hidden="true" />
+							</div>
+							<div class="min-w-0">
+								<div class="text-sm font-semibold">{social.name}</div>
+								<div class="text-cocoa-light truncate text-xs">
+									{social.handle}
+								</div>
+							</div>
+						</a>
+					);
+				})
+			}
+		</div>
+	</div>
+</Base>

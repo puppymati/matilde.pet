@@ -1,0 +1,55 @@
+---
+import Base from '@/layouts/Base.astro';
+import { getCollection, render } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+import IconChevronLeft from '@/assets/icons/chevron-left.svg';
+import { formatDate } from '@/utils';
+
+export async function getStaticPaths() {
+	const posts = await getCollection('blog');
+	return posts.map((post) => ({
+		params: { slug: post.id },
+		props: { post },
+	}));
+}
+
+interface Props {
+	post: CollectionEntry<'blog'>;
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+---
+
+<Base
+	title={`${post.data.title} · Matilde`}
+	description={post.data.description}
+>
+	<article class="mx-auto min-h-screen max-w-3xl px-6 pt-24 pb-16">
+		<div>
+			<a
+				href="/blog"
+				class="text-cocoa-light hover:text-peach mb-8 inline-flex items-center gap-1.5 text-sm font-medium transition-colors"
+			>
+				<IconChevronLeft aria-hidden="true" class="h-4 w-4" />
+				back to blog
+			</a>
+
+			<header class="mb-8">
+				<time
+					datetime={post.data.pubDate.toISOString()}
+					class="text-cocoa-light mb-2 block text-sm font-medium"
+				>
+					{formatDate(post.data.pubDate)}
+				</time>
+				<h1 class="text-3xl leading-tight font-bold sm:text-4xl">
+					{post.data.title}
+				</h1>
+			</header>
+
+			<div class="prose max-w-3xl">
+				<Content />
+			</div>
+		</div>
+	</article>
+</Base>

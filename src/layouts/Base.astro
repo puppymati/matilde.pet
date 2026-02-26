@@ -1,7 +1,16 @@
 ---
+import '@fontsource-variable/fredoka';
 import '@/styles/global.css';
 import { ClientRouter } from 'astro:transitions';
+import Nav from '@/components/Nav.astro';
 import Paw from '@/components/Paw.astro';
+
+interface Props {
+	title?: string;
+	description?: string;
+}
+
+const { title = 'Matilde', description } = Astro.props;
 
 const paws = [
 	{ top: '8%', left: '12%', size: '50px', rotate: '-25deg' },
@@ -19,32 +28,27 @@ const paws = [
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" class="overflow-x-hidden">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		{description && <meta name="description" content={description} />}
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link
 			rel="alternate"
 			type="application/rss+xml"
-			title="Matilde"
+			title="Mati's Blog"
 			href={new URL('rss.xml', Astro.site)}
 		/>
-		<link rel="preconnect" href="https://fonts.googleapis.com" />
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-		<link
-			href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap"
-			rel="stylesheet"
-		/>
-		<title>Matilde</title>
+		<title>{title}</title>
 		<ClientRouter />
 	</head>
-	<body class="relative min-h-screen overflow-x-hidden">
+	<body class="text-cocoa relative min-h-screen">
 		<!-- Paw prints -->
 		{paws.map((paw) => <Paw {...paw} />)}
 
 		<!-- Background gradients -->
-		<div class="fixed inset-0 -z-10">
+		<div aria-hidden="true" class="fixed inset-0 -z-10">
 			<!-- Radial gradient overlays -->
 			<div
 				class="from-lavender/30 absolute inset-0 bg-radial-[at_20%_50%] to-transparent to-50%"
@@ -64,7 +68,10 @@ const paws = [
 			>
 			</div>
 		</div>
-		<main class="font-fredoka h-screen w-screen">
+
+		<Nav />
+
+		<main class="font-fredoka min-h-screen w-full">
 			<slot />
 		</main>
 	</body>
