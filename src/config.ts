@@ -39,8 +39,8 @@ export const contacts = {
 	},
 	email: {
 		name: 'Email',
-		handle: 'contact@morrone.dev',
-		href: 'mailto:contact@morrone.dev',
+		handle: 'contact@matilde.pet',
+		href: 'mailto:contact@matilde.pet',
 		color: 'pink' as AccentColor,
 	},
 };
@@ -94,7 +94,7 @@ export const projects = [
 	// 	name: 'cake',
 	// 	description: 'The Portal ending screen, running in your browser.',
 	// 	tags: ['TypeScript', 'Web'],
-	// 	href: 'https://cake.morrone.dev/',
+	// 	href: 'https://cake.matilde.pet/',
 	// 	color: 'pink' as AccentColor,
 	// },
 	{
