@@ -1,4 +1,6 @@
 @import 'tailwindcss';
+@plugin '@tailwindcss/typography';
+
 @theme {
 	--color-peach: oklch(0.77 0.13 30);
 	--color-peach-light: oklch(0.92 0.08 35);
@@ -7,6 +9,39 @@
 	--color-cream: oklch(0.98 0.01 60);
 	--color-lavender: oklch(0.82 0.12 295);
 	--color-lavender-light: oklch(0.95 0.06 295);
+	--color-cocoa: oklch(0.35 0.05 30);
+	--color-cocoa-light: oklch(0.5 0.04 30);
 
-	--font-fredoka: 'Fredoka', sans-serif;
+	--font-fredoka: 'Fredoka Variable', sans-serif;
+}
+
+@layer base {
+	.prose {
+		--tw-prose-body: var(--color-cocoa);
+		--tw-prose-headings: var(--color-cocoa);
+		--tw-prose-lead: var(--color-cocoa-light);
+		--tw-prose-links: var(--color-peach);
+		--tw-prose-bold: var(--color-cocoa);
+		--tw-prose-counters: var(--color-cocoa-light);
+		--tw-prose-bullets: var(--color-cocoa-light);
+		--tw-prose-hr: var(--color-peach-light);
+		--tw-prose-quotes: var(--color-cocoa);
+		--tw-prose-quote-borders: var(--color-peach);
+		--tw-prose-captions: var(--color-cocoa-light);
+		--tw-prose-code: var(--color-cocoa);
+		--tw-prose-pre-code: var(--color-cocoa);
+		--tw-prose-pre-bg: var(--color-peach-light);
+		--tw-prose-th-borders: var(--color-peach-light);
+		--tw-prose-td-borders: var(--color-peach-light);
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.01ms !important;
+	}
 }
