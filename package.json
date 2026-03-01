@@ -17,6 +17,7 @@
 		"@astrojs/rss": "^4.0.15",
 		"@fontsource-variable/fredoka": "^5.2.10",
 		"astro": "^5.18.0",
+		"giscus": "^1.6.0",
 		"tailwindcss": "^4.2.1"
 	},
 	"devDependencies": {

@@ -4,6 +4,7 @@ import { getCollection, render } from 'astro:content';
 import type { CollectionEntry } from 'astro:content';
 import IconChevronLeft from '@/assets/icons/chevron-left.svg';
 import { formatDate } from '@/utils';
+import Comments from '@/components/Comments.astro';
 
 export async function getStaticPaths() {
 	const posts = await getCollection('blog');
@@ -51,5 +52,10 @@ const { Content } = await render(post);
 				<Content />
 			</div>
 		</div>
+
+		<!-- Separator before comments -->
+		<div class="my-12"></div>
+
+		<Comments />
 	</article>
 </Base>
