@@ -2,7 +2,7 @@
 	"name": "matilde.pet",
 	"type": "module",
 	"version": "0.0.1",
-	"packageManager": "pnpm@10.30.2",
+	"packageManager": "pnpm@10.30.3",
 	"scripts": {
 		"dev": "astro dev",
 		"build": "astro check && astro build",
